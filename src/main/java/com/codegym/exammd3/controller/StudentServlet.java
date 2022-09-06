@@ -36,10 +36,18 @@ public class StudentServlet extends HttpServlet {
         }
     }
 
+    private void viewEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("").forward(req,resp);
+    }
+
+    private void viewAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getRequestDispatcher("").forward(req,resp);
+    }
+
     private void listStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Student> students= service.findAll();
         req.setAttribute("students",students);
-        req.getRequestDispatcher("").forward(req,resp);
+        req.getRequestDispatcher("listStudent.jsp").forward(req,resp);
     }
 
     @Override
@@ -65,16 +73,46 @@ public class StudentServlet extends HttpServlet {
 
     }
 
-    private void addStudent(HttpServletRequest req, HttpServletResponse resp) {
+    private void removeStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id= Integer.parseInt(req.getParameter("id"));
+        service.delete(id);
+        req.getRequestDispatcher("").forward(req,resp);
+    }
+
+    private void editStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id= Integer.parseInt(req.getParameter("id"));
         String name= req.getParameter("name");
         String date=req.getParameter("dateOfBirth");
         String address= req.getParameter("address");
         String phone= req.getParameter("phone");
         String email= req.getParameter("email");
-        int classroom_id= Integer.parseInt(req.getParameter("classroom_id"));
+        String classroom_id= req.getParameter("classroom_id");
 
         Student student= new Student(name,date,address,phone,email,classroom_id);
+        if( service.edit(id,student)){
+            req.setAttribute("message","edit success");
+        }else {
+            req.setAttribute("message","edit failed");
+        }
+        req.getRequestDispatcher("").forward(req,resp);
+    }
 
+
+    private void addStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        int id= Integer.parseInt(req.getParameter("id"));
+        String name= req.getParameter("name");
+        String date=req.getParameter("dateOfBirth");
+        String address= req.getParameter("address");
+        String phone= req.getParameter("phone");
+        String email= req.getParameter("email");
+        String classroom_id= req.getParameter("classroom_id");
+
+        Student student= new Student(name,date,address,phone,email,classroom_id);
+       if( service.add(student)){
+        req.setAttribute("message","add success");
+       }else {
+           req.setAttribute("message","add failed");
+       }
+       req.getRequestDispatcher("").forward(req,resp);
     }
 }

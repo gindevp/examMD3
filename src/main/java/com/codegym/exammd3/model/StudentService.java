@@ -15,11 +15,12 @@ public class StudentService {
     private static final String UPDATE_STUDENT = "UPDATE STUDENT SET NAME=?,dateOfBirth=?,address=?,phone=?,email=?,classroom_id=? WHERE ID=?";
     private static final String DELETE_STUDENT = "DELETE FROM student WHERE id=?";
     private final String SELECT_ALL = "SELECT * FROM STUDENT";
+    private final String SELECT_ALL_S = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on student.id=classroom.id; ";
     Connection connection = new ConnectionJDBC().getConnect();
 
     public List<Student> findAll() {
         List<Student> students = new ArrayList<>();
-        try (PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL)) {
+        try (PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_S)) {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 int id= rs.getInt(1);
@@ -28,7 +29,7 @@ public class StudentService {
                 String address = rs.getString(4);
                 String phoneNumber = rs.getString(5);
                 String email = rs.getString(6);
-                int classroom = rs.getInt(7);
+                String classroom = rs.getString(7);
                 students.add(new Student(id ,name, dateOfBirth, address, phoneNumber, email, classroom));
             }
         } catch (SQLException e) {
@@ -45,7 +46,7 @@ public class StudentService {
             pstmt.setString(3, student.getAddress());
             pstmt.setString(4, student.getPhone());
             pstmt.setString(5, student.getEmail());
-            pstmt.setInt(6, student.getClassroom_id());
+            pstmt.setString(6, student.getClassroom_id());
             a = pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -60,7 +61,7 @@ public class StudentService {
            pstmt.setString(3, student.getAddress());
            pstmt.setString(4, student.getPhone());
            pstmt.setString(5, student.getEmail());
-           pstmt.setInt(6, student.getClassroom_id());
+           pstmt.setString(6, student.getClassroom_id());
            pstmt.setInt(7,id);
            a = pstmt.executeUpdate() > 0;
        } catch (SQLException e) {

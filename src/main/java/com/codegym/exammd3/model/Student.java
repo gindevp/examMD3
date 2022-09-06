@@ -9,12 +9,12 @@ public class Student {
     private String address;
     private String phone;
     private String email;
-    private int classroom_id;
+    private String classroom_id;
 
     public Student() {
     }
 
-    public Student(int id, String name, String dateOfBirth, String address, String phone, String email, int classroom_id) {
+    public Student(int id, String name, String dateOfBirth, String address, String phone, String email, String classroom_id) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
@@ -24,7 +24,7 @@ public class Student {
         this.classroom_id = classroom_id;
     }
 
-    public Student(String name, String dateOfBirth, String address, String phone, String email, int classroom_id) {
+    public Student(String name, String dateOfBirth, String address, String phone, String email, String classroom_id) {
         this.name = name;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
         this.address = address;
@@ -81,11 +81,11 @@ public class Student {
         this.email = email;
     }
 
-    public int getClassroom_id() {
+    public String getClassroom_id() {
         return classroom_id;
     }
 
-    public void setClassroom_id(int classroom_id) {
+    public void setClassroom_id(String classroom_id) {
         this.classroom_id = classroom_id;
     }
 }
