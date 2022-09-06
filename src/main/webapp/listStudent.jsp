@@ -7,12 +7,15 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>List</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<table>
+<a class="btn btn-success" href="/students?action=add"></a>
+<table class="table">
     <thead>
     <tr>
         <td>#</td>
@@ -22,7 +25,7 @@
         <td>Phone</td>
         <td>Emai</td>
         <td>Classroom</td>
-        <td colspan="2">Action</td>
+        <td colspan="2" style="text-align: center">Action</td>
     </tr>
     </thead>
     <tbody>
@@ -35,8 +38,8 @@
             <td>${students.phone}</td>
             <td>${students.email}</td>
             <td>${students.classroom_id}</td>
-            <td><a type="button" href="/students?action=edit&id=${students.id}">edit</a></td>
-            <td><a type="button" href="/students?action=remove&id=${students.id}">remote</a></td>
+            <td style="text-align: center"><a type="button" class="btn btn-primary" href="/students?action=edit&id=${students.id}">edit</a></td>
+            <td style="text-align: center"><a type="button" class="btn btn-danger" href="/students?action=remove&id=${students.id}">remote</a></td>
         </tr>
     </c:forEach></tbody>
 </table>

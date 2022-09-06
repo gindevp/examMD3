@@ -28,8 +28,6 @@ public class StudentServlet extends HttpServlet {
             case "edit":
                 viewEdit(req,resp);
                 break;
-            case "remove":
-                break;
             default:
                 listStudent(req,resp);
                 break;
@@ -65,9 +63,6 @@ public class StudentServlet extends HttpServlet {
                 break;
             case "remove":
                 removeStudent(req,resp);
-                break;
-            default:
-                listStudent(req,resp);
                 break;
         }
 
