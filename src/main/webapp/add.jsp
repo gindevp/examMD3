@@ -21,23 +21,23 @@
     </c:if>
     <div class="mb-3 mt-3">
         <label for="name" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="name" placeholder="Name" name="name">
+        <input type="text" class="form-control" id="name" placeholder="Name" value="${student.name}" name="name">
     </div>
     <div class="mb-3">
         <label for="dateOfBirth" class="form-label">DateOfBirth:</label>
-        <input type="date" class="form-control" id="dateOfBirth" placeholder="dateOfBirth" name="dateOfBirth">
+        <input type="date" class="form-control" id="dateOfBirth" placeholder="dateOfBirth" value="${student.dateOfBirth}"name="dateOfBirth">
     </div>
     <div class="mb-3 mt-3">
         <label for="address" class="form-label">Address:</label>
-        <input type="text" class="form-control" id="address" placeholder="address" name="address">
+        <input type="text" class="form-control" id="address" placeholder="address" value="${student.address}"name="address">
     </div>
     <div class="mb-3">
         <label for="phone" class="form-label">Phone:</label>
-        <input type="text" class="form-control" id="phone" placeholder="phone" name="phone">
+        <input type="text" class="form-control" id="phone" placeholder="phone" value="${student.phone}" name="phone">
     </div>
     <div class="mb-3 mt-3">
         <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="email" name="email">
+        <input type="email" class="form-control" id="email" placeholder="email"value="${student.email}" name="email">
     </div>
     <select class="form-select" name="classroom_id">
         <c:forEach items="${studentsC}" var="studentsC">

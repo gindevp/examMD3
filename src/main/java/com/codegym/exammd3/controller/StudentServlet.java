@@ -93,6 +93,7 @@ public class StudentServlet extends HttpServlet {
     private void removeStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id = Integer.parseInt(req.getParameter("id"));
         service.delete(id);
+        resp.sendRedirect("/students");
     }
 
     private void editStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -128,6 +129,9 @@ public class StudentServlet extends HttpServlet {
         } else {
             req.setAttribute("message", "add failed");
         }
+        List<Student> studentsC = service.findAllC();
+        req.setAttribute("studentsC", studentsC);
+        req.setAttribute("student", student);
         req.getRequestDispatcher("add.jsp").forward(req, resp);
     }
 }
