@@ -16,6 +16,7 @@ public class StudentService {
     private static final String DELETE_STUDENT = "DELETE FROM student WHERE id=?";
     private final String SELECT_ALL = "SELECT * FROM STUDENT";
     private final String SELECT_ALL_S = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on student.id=classroom.id; ";
+    private final String SELECT_ALL_C = "SELECT classroom.id, classroom.className FROM STUDENT join classroom on student.id=classroom.id; ";
     Connection connection = new ConnectionJDBC().getConnect();
 
     public List<Student> findAll() {
@@ -78,5 +79,19 @@ public class StudentService {
             throw new RuntimeException(e);
         }
         return a;
+   }
+   public List<Student> findAllC(){
+       List<Student> students = new ArrayList<>();
+       try (PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_C)) {
+           ResultSet rs = pstmt.executeQuery();
+           while (rs.next()) {
+               int id= rs.getInt(1);
+               String classroom = rs.getString(2);
+               students.add(new Student(id ,classroom));
+           }
+       } catch (SQLException e) {
+           throw new RuntimeException(e);
+       }
+       return students;
    }
 }

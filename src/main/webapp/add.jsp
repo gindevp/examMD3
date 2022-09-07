@@ -6,25 +6,40 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Add</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-<form method="post">
+<body class="container">
+<form  method="get">
+    <h1>Add student</h1>
     <div class="mb-3 mt-3">
-        <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" id="name" placeholder="Name" name="email">
     </div>
     <div class="mb-3">
-        <label for="pwd" class="form-label">Password:</label>
-        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pswd">
+        <label for="dateOfBirth" class="form-label">DateOfBirth:</label>
+        <input type="date" class="form-control" id="dateOfBirth" placeholder="dateOfBirth" name="dateOfBirth">
     </div>
-    <div class="form-check mb-3">
-        <label class="form-check-label">
-            <input class="form-check-input" type="checkbox" name="remember"> Remember me
-        </label>
+    <div class="mb-3 mt-3">
+        <label for="address" class="form-label">Address:</label>
+        <input type="text" class="form-control" id="address" placeholder="address" name="address">
     </div>
+    <div class="mb-3">
+        <label for="phone" class="form-label">Phone:</label>
+        <input type="text" class="form-control" id="phone" placeholder="phone" name="phone">
+    </div>
+    <div class="mb-3 mt-3">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="email" name="email">
+    </div>
+    <select class="form-select" name="classroom_id">
+        <c:forEach items="${studentsC}" var="studentsC">
+        <option value="${studentsC.id}">${studentsC.classroom_id}</option>
+        </c:forEach>
+    </select>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </body>

@@ -35,11 +35,14 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void viewEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         req.getRequestDispatcher("").forward(req,resp);
     }
 
     private void viewAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("").forward(req,resp);
+        List<Student> studentsC=service.findAllC();
+        req.setAttribute("studentsC",studentsC);
+        req.getRequestDispatcher("add.jsp").forward(req,resp);
     }
 
     private void listStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -9,9 +9,15 @@ public class Student {
     private String address;
     private String phone;
     private String email;
+
     private String classroom_id;
 
     public Student() {
+    }
+
+    public Student(int id, String classroom_id) {
+        this.id = id;
+        this.classroom_id = classroom_id;
     }
 
     public Student(int id, String name, String dateOfBirth, String address, String phone, String email, String classroom_id) {
