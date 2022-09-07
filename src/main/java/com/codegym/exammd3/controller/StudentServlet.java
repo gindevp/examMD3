@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +29,8 @@ public class StudentServlet extends HttpServlet {
             case "edit":
                 viewEdit(req,resp);
                 break;
+            case "remove":
+                removeStudent(req,resp);
             default:
                 listStudent(req,resp);
                 break;
@@ -35,8 +38,12 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void viewEdit(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        req.getRequestDispatcher("").forward(req,resp);
+int id= Integer.parseInt(req.getParameter("id"));
+        List<Student> studentsC=service.findAllC();
+        req.setAttribute("studentsC",studentsC);
+Student student= service.findById(id);
+req.setAttribute("student",student);
+        req.getRequestDispatcher("edit.jsp").forward(req,resp);
     }
 
     private void viewAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -64,9 +71,6 @@ public class StudentServlet extends HttpServlet {
             case "edit":
                 editStudent(req,resp);
                 break;
-            case "remove":
-                removeStudent(req,resp);
-                break;
         }
 
     }
@@ -74,17 +78,16 @@ public class StudentServlet extends HttpServlet {
     private void removeStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id= Integer.parseInt(req.getParameter("id"));
         service.delete(id);
-        req.getRequestDispatcher("").forward(req,resp);
     }
 
     private void editStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int id= Integer.parseInt(req.getParameter("id"));
         String name= req.getParameter("name");
-        String date=req.getParameter("dateOfBirth");
+        LocalDate date= LocalDate.parse(req.getParameter("dateOfBirth"));
         String address= req.getParameter("address");
         String phone= req.getParameter("phone");
         String email= req.getParameter("email");
-        String classroom_id= req.getParameter("classroom_id");
+        int classroom_id= Integer.parseInt(req.getParameter("classroom_id"));
 
         Student student= new Student(name,date,address,phone,email,classroom_id);
         if( service.edit(id,student)){
@@ -92,18 +95,17 @@ public class StudentServlet extends HttpServlet {
         }else {
             req.setAttribute("message","edit failed");
         }
-        req.getRequestDispatcher("").forward(req,resp);
+        req.getRequestDispatcher("edit.jsp").forward(req,resp);
     }
 
 
     private void addStudent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id= Integer.parseInt(req.getParameter("id"));
         String name= req.getParameter("name");
-        String date=req.getParameter("dateOfBirth");
+        LocalDate date= LocalDate.parse(req.getParameter("dateOfBirth"));
         String address= req.getParameter("address");
         String phone= req.getParameter("phone");
         String email= req.getParameter("email");
-        String classroom_id= req.getParameter("classroom_id");
+        int classroom_id= Integer.parseInt(req.getParameter("classroom_id"));
 
         Student student= new Student(name,date,address,phone,email,classroom_id);
        if( service.add(student)){
@@ -111,6 +113,6 @@ public class StudentServlet extends HttpServlet {
        }else {
            req.setAttribute("message","add failed");
        }
-       req.getRequestDispatcher("").forward(req,resp);
+       req.getRequestDispatcher("add.jsp").forward(req,resp);
     }
 }

@@ -13,11 +13,15 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="container">
-<form  method="get">
+<form  method="post">
     <h1>Add student</h1>
+    <a type="button" class="btn btn-primary" href="/students">Quay lại trang list students</a>
+    <c:if test="${message!=null}">
+        <h5 style="color: green"> ${message}</h5>
+    </c:if>
     <div class="mb-3 mt-3">
         <label for="name" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="name" placeholder="Name" name="email">
+        <input type="text" class="form-control" id="name" placeholder="Name" name="name">
     </div>
     <div class="mb-3">
         <label for="dateOfBirth" class="form-label">DateOfBirth:</label>
@@ -37,7 +41,7 @@
     </div>
     <select class="form-select" name="classroom_id">
         <c:forEach items="${studentsC}" var="studentsC">
-        <option value="${studentsC.id}">${studentsC.classroom_id}</option>
+        <option value="${studentsC.id}">${studentsC.classroom_name}</option>
         </c:forEach>
     </select>
     <button type="submit" class="btn btn-primary">Submit</button>

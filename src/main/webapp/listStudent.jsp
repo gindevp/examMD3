@@ -14,7 +14,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<a class="btn btn-success" href="/students?action=add"></a>
+<h1 style="text-align: center">List Students</h1>
+<a class="btn btn-success" href="/students?action=add">add</a>
 <table class="table">
     <thead>
     <tr>
@@ -37,7 +38,7 @@
             <td>${students.address}</td>
             <td>${students.phone}</td>
             <td>${students.email}</td>
-            <td>${students.classroom_id}</td>
+            <td>${students.classroom_name}</td>
             <td style="text-align: center"><a type="button" class="btn btn-primary" href="/students?action=edit&id=${students.id}">edit</a></td>
             <td style="text-align: center"><a type="button" class="btn btn-danger" href="/students?action=remove&id=${students.id}">remote</a></td>
         </tr>

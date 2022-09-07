@@ -6,17 +6,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentService {
-    private static final String SELECT_BY_ID = "select * from student where id=?;";
+    private static final String SELECT_BY_ID = "select student.id,name,dateOfBirth,address, phone, email, classroom.id,classroom.className from student join classroom on classroom.id=student.classroom_id where student.id=?;";
     private static final String INSERT_STUDENT = "INSERT INTO student(name, dateOfBirth, address, phone, email, classroom_id) VALUE (?,?,?,?,?,?)";
     private static final String UPDATE_STUDENT = "UPDATE STUDENT SET NAME=?,dateOfBirth=?,address=?,phone=?,email=?,classroom_id=? WHERE ID=?";
     private static final String DELETE_STUDENT = "DELETE FROM student WHERE id=?";
     private final String SELECT_ALL = "SELECT * FROM STUDENT";
-    private final String SELECT_ALL_S = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on student.id=classroom.id; ";
-    private final String SELECT_ALL_C = "SELECT classroom.id, classroom.className FROM STUDENT join classroom on student.id=classroom.id; ";
+    private final String SELECT_ALL_S = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on classroom.id=student.classroom_id order by student.id ASC ";
+    private final String SELECT_ALL_C = "SELECT classroom.id, classroom.className FROM classroom; ";
     Connection connection = new ConnectionJDBC().getConnect();
 
     public List<Student> findAll() {
@@ -26,7 +27,7 @@ public class StudentService {
             while (rs.next()) {
                 int id= rs.getInt(1);
                 String name = rs.getString(2);
-                String dateOfBirth = rs.getString(3);
+                String dateOfBirth =(rs.getString(3));
                 String address = rs.getString(4);
                 String phoneNumber = rs.getString(5);
                 String email = rs.getString(6);
@@ -47,7 +48,8 @@ public class StudentService {
             pstmt.setString(3, student.getAddress());
             pstmt.setString(4, student.getPhone());
             pstmt.setString(5, student.getEmail());
-            pstmt.setString(6, student.getClassroom_id());
+            pstmt.setInt(6, student.getClassroom_id());
+            System.out.println(pstmt);
             a = pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -62,7 +64,7 @@ public class StudentService {
            pstmt.setString(3, student.getAddress());
            pstmt.setString(4, student.getPhone());
            pstmt.setString(5, student.getEmail());
-           pstmt.setString(6, student.getClassroom_id());
+           pstmt.setInt(6, student.getClassroom_id());
            pstmt.setInt(7,id);
            a = pstmt.executeUpdate() > 0;
        } catch (SQLException e) {
@@ -93,5 +95,25 @@ public class StudentService {
            throw new RuntimeException(e);
        }
        return students;
+   }
+   public Student findById(int id){
+        Student student=null;
+        try(PreparedStatement ptmt= connection.prepareStatement(SELECT_BY_ID)) {
+            ptmt.setInt(1,id);
+            ResultSet rs= ptmt.executeQuery();
+            if(rs.next()){
+                String name= rs.getString(2);
+                LocalDate date= LocalDate.parse(rs.getString(3));
+                String address= rs.getString(4);
+                String phone= rs.getString(5);
+                String email=rs.getString(6);
+                String className=rs.getString(8);
+                int classid = Integer.parseInt(rs.getString(7));
+                student= new Student(id,name,date,address,phone,email,className,classid);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return student;
    }
 }

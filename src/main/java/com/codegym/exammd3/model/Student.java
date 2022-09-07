@@ -10,33 +10,55 @@ public class Student {
     private String phone;
     private String email;
 
-    private String classroom_id;
+    private String classroom_name;
 
+    private int classroom_id;
     public Student() {
     }
 
-    public Student(int id, String classroom_id) {
+    public Student(int id, String name, LocalDate dateOfBirth, String address, String phone, String email, String classroom_name, int classroom_id) {
         this.id = id;
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.classroom_name = classroom_name;
         this.classroom_id = classroom_id;
     }
 
-    public Student(int id, String name, String dateOfBirth, String address, String phone, String email, String classroom_id) {
+    public Student(String name, LocalDate dateOfBirth, String address, String phone, String email, int classroom_id) {
+        this.name = name;
+        this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.phone = phone;
+        this.email = email;
+        this.classroom_name = classroom_name;
+        this.classroom_id = classroom_id;
+    }
+
+    public Student(int id, String classroom_name) {
+        this.id = id;
+        this.classroom_name = classroom_name;
+    }
+
+    public Student(int id, String name, String dateOfBirth, String address, String phone, String email, String classroom_name) {
         this.id = id;
         this.name = name;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.classroom_id = classroom_id;
+        this.classroom_name = classroom_name;
     }
 
-    public Student(String name, String dateOfBirth, String address, String phone, String email, String classroom_id) {
+    public Student(String name, String dateOfBirth, String address, String phone, String email, String classroom_name) {
         this.name = name;
         this.dateOfBirth = LocalDate.parse(dateOfBirth);
         this.address = address;
         this.phone = phone;
         this.email = email;
-        this.classroom_id = classroom_id;
+        this.classroom_name = classroom_name;
     }
 
     public int getId() {
@@ -87,11 +109,19 @@ public class Student {
         this.email = email;
     }
 
-    public String getClassroom_id() {
+    public String getClassroom_name() {
+        return classroom_name;
+    }
+
+    public void setClassroom_name(String classroom_name) {
+        this.classroom_name = classroom_name;
+    }
+
+    public int getClassroom_id() {
         return classroom_id;
     }
 
-    public void setClassroom_id(String classroom_id) {
+    public void setClassroom_id(int classroom_id) {
         this.classroom_id = classroom_id;
     }
 }
