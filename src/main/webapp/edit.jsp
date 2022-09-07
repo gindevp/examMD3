@@ -21,7 +21,7 @@
     </c:if>
     <div class="mb-3 mt-3">
         <label for="name" class="form-label">Name:</label>
-        <input type="text" class="form-control" id="name" placeholder="Name" name="email" value="${student.name}">
+        <input type="text" class="form-control" id="name" placeholder="Name" name="name" value="${student.name}">
     </div>
     <div class="mb-3">
         <label for="dateOfBirth" class="form-label">DateOfBirth:</label>
@@ -37,7 +37,7 @@
     </div>
     <div class="mb-3 mt-3">
         <label for="email" class="form-label">Email:</label>
-        <input type="email" class="form-control" id="email" placeholder="email" name="email " value="${student.email}">
+        <input type="email" class="form-control" id="email" placeholder="email" name="email" value="${student.email}">
     </div>
     <select class="form-select" name="classroom_id" >
 <%--        ${student.classroom_id} ${student.classroom_name}--%>

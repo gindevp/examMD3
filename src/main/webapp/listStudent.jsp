@@ -18,7 +18,7 @@
 
 <div>
 
-    <form class="d-flex" role="search" action="/students" method="get">
+    <form class="d-flex" action="/students?action=search" method="post">
         <a  class="btn btn-success" href="/students?action=add" >add</a>
         &nbsp;
         &nbsp;
@@ -92,7 +92,7 @@
         &nbsp;
         &nbsp;
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search " name="search" style="width: 40%">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button type="submit">Search</button>
     </form>
 </div>
 
@@ -104,7 +104,7 @@
         <td>Date of birth</td>
         <td>Address</td>
         <td>Phone</td>
-        <td>Emai</td>
+        <td>Email</td>
         <td>Classroom</td>
         <td colspan="2" style="text-align: center">Action</td>
     </tr>

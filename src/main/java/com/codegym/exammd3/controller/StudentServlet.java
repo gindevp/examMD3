@@ -83,6 +83,9 @@ public class StudentServlet extends HttpServlet {
             case "edit":
                 editStudent(req, resp);
                 break;
+            case "search":
+                searchStudent(req,resp);
+                break;
         }
 
     }

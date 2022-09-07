@@ -13,7 +13,7 @@ import java.util.List;
 public class StudentService {
     private static final String SELECT_BY_ID = "select student.id,name,dateOfBirth,address, phone, email, classroom.id,classroom.className from student join classroom on classroom.id=student.classroom_id where student.id=?;";
     private static final String INSERT_STUDENT = "INSERT INTO student(name, dateOfBirth, address, phone, email, classroom_id) VALUE (?,?,?,?,?,?)";
-    private static final String UPDATE_STUDENT = "UPDATE STUDENT SET NAME=?,dateOfBirth=?,address=?,phone=?,email=?,classroom_id=? WHERE ID=?";
+    private static final String UPDATE_STUDENT = "UPDATE STUDENT SET name=?,dateOfBirth=?,address=?,phone=?,email=?,classroom_id=? WHERE ID=?";
     private static final String DELETE_STUDENT = "DELETE FROM student WHERE id=?";
     private static final String SELECT_ALL_BY_NAME = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on classroom.id=student.classroom_id where student.name=?";
     private final String SELECT_ALL = "SELECT * FROM STUDENT";
@@ -86,6 +86,7 @@ public class StudentService {
    public List<Student> findAllC(){
        List<Student> students = new ArrayList<>();
        try (PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_C)) {
+           System.out.println(pstmt);
            ResultSet rs = pstmt.executeQuery();
 
            while (rs.next()) {
