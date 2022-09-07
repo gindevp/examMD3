@@ -15,6 +15,7 @@ public class StudentService {
     private static final String INSERT_STUDENT = "INSERT INTO student(name, dateOfBirth, address, phone, email, classroom_id) VALUE (?,?,?,?,?,?)";
     private static final String UPDATE_STUDENT = "UPDATE STUDENT SET NAME=?,dateOfBirth=?,address=?,phone=?,email=?,classroom_id=? WHERE ID=?";
     private static final String DELETE_STUDENT = "DELETE FROM student WHERE id=?";
+    private static final String SELECT_ALL_BY_NAME = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on classroom.id=student.classroom_id where student.name=?";
     private final String SELECT_ALL = "SELECT * FROM STUDENT";
     private final String SELECT_ALL_S = "SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on classroom.id=student.classroom_id order by student.id ASC ";
     private final String SELECT_ALL_C = "SELECT classroom.id, classroom.className FROM classroom; ";
@@ -86,6 +87,7 @@ public class StudentService {
        List<Student> students = new ArrayList<>();
        try (PreparedStatement pstmt = connection.prepareStatement(SELECT_ALL_C)) {
            ResultSet rs = pstmt.executeQuery();
+
            while (rs.next()) {
                int id= rs.getInt(1);
                String classroom = rs.getString(2);
@@ -115,5 +117,26 @@ public class StudentService {
             throw new RuntimeException(e);
         }
         return student;
+   }
+   public List<Student> findByNameAll(String name){
+        List<Student> students= new ArrayList<>();
+        try(PreparedStatement preparedStatement= connection.prepareStatement(SELECT_ALL_BY_NAME)) {
+            preparedStatement.setString(1,name);
+            System.out.println(preparedStatement);
+            ResultSet rs=preparedStatement.executeQuery();
+            while (rs.next()){
+                int id= rs.getInt(1);
+                String name1= rs.getString(2);
+                String date= rs.getString(3);
+                String address= rs.getString(4);
+                String phone= rs.getString(5);
+                String email= rs.getString(6);
+                String classname= rs.getString(7);
+                students.add(new Student(id,name1,date,address,phone,email,classname));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return students;
    }
 }

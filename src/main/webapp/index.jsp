@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="/students">Student</a>
+<jsp:include page="/students"></jsp:include>
 </body>
 </html>

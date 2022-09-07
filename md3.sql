@@ -28,3 +28,4 @@ insert into student(name, dateOfBirth, address, phone, email, classroom_id) valu
 insert into student(name, dateOfBirth, address, phone, email, classroom_id) value ('quet','2001-09-07','BN','04824023','qutete@gmail.com',4);
 insert into student(name, dateOfBirth, address, phone, email, classroom_id) value ('qyet','2001-09-07','BN','04824023','qutete@gmail.com',5);
 drop database students;
+SELECT student.id,name,dateOfBirth,address, phone, email, classroom.className FROM STUDENT join classroom on classroom.id=student.classroom_id where student.name=?
